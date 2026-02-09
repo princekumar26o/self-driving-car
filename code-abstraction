@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+// real life self driving car:
+
+class car{
+    public:
+    virtual void startengine()=0;
+    virtual void shiftgear(int gear)=0;
+    virtual void accelerate()=0;
+    virtual void brake()=0;
+    virtual void stopengine()=0;
+    virtual ~car() {}
+};
+
+class sportscar : public car{
+public:
+    string brand;
+    string model;
+    bool isengineon;
+    int currentspeed;
+    int currentgear;
+
+    sportscar(string b,string a){
+        this->brand=b;
+        this->model=a;
+        isengineon=false;
+        currentspeed=0;
+        currentgear=0;
+    }
+    void startengine(){
+        isengineon=true;
+        cout<<brand<<" "<<model<<": engine start with a gear"<<endl;
+    }
+    void shiftgear(int gear){
+         if(!isengineon){
+            cout<<brand<<" "<<model<<": engine is off cannot shift gear"<<endl;
+            return;
+         }
+         currentgear=gear;
+         cout<<brand<<" "<<model<<" : shifted to gear"<<currentgear<<endl;
+    }
+    void accelerate(){
+        if(!isengineon){
+            cout<<brand<<" "<<model<<": engine is off cannot accelerate "<<endl;
+            return;
+        }
+        currentspeed=20;
+        cout<<brand<<" "<<model<<" :accelerating to "<<currentspeed<<"km/hr"<<endl;
+    }
+    void brake(){
+        currentspeed-=20;
+        if(currentspeed<0)currentspeed=0;
+        cout<<brand<<" "<<model<<": breaking speed is now "<<currentspeed<<"km/hr"<<endl;
+
+    }
+    void stopengine(){
+        isengineon=false;
+        currentgear=0;
+        currentspeed=0;
+        cout<<brand<<" "<<model<<" : engine turned off"<<endl;
+    }
+};
+
+int main(){
+    car* mycar=new sportscar("ford","mustang");
+
+    mycar->startengine();
+    mycar->shiftgear(1);
+    mycar->accelerate();
+    mycar->brake();
+    mycar->stopengine();
+}
