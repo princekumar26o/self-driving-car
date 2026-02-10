@@ -1,1 +1,90 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+class sportscar {
+    private:
+    // character:
+    string brand;
+    string model;
+    bool isengineon;
+    int currentgear;
+    int currentspeed;
+    string tyre;
 
+   public:
+    sportscar(string b,string a){
+        this->brand=b;
+        this->model=a;
+        isengineon=false;
+        currentgear=0;
+        currentspeed=0;
+    }
+
+    // getters and setters :-
+
+    int getspeed(){
+        return this->currentspeed;
+    }
+    // character -> methods:
+
+    void startengine(){
+        isengineon=true;
+        cout<<brand<<" "<<model<<" : engine start with a gear"<<endl;
+    }
+
+    void shiftgear(int gear){
+        if(!isengineon){
+            cout<<brand<<" "<<model<<" : engine is off cannot shift gear"<<endl;
+            return;
+        }
+        currentgear=gear;
+        cout<<brand<<" "<<model<<": shifted to gear"<<" "<<gear<<endl;
+    }
+
+    void accelerate(){
+        if(!isengineon){
+            cout<<brand<<" "<<model<<" : engine is off cannot accelerate"<<endl;
+        }
+        currentspeed=20;
+        cout<<brand<<" "<<model<<" : accelerating to "<<currentspeed<<endl;
+    }
+
+    string gettyre(){
+        return this->tyre;
+    }
+
+    void settyre(string tyre){
+        //validations check
+        this->tyre=tyre;
+    }
+
+    void brake(){
+       currentspeed-=20;
+       if(currentspeed<=0){
+        cout<<brand<<" "<<model<<" : engine is turned off"<<endl;
+        return;
+       }
+       cout<<brand<<" "<<model<<" : deceleating to"<<currentspeed<<endl;
+    }
+
+    void stopengine(){
+        isengineon=false;
+        currentgear=0;
+        currentspeed=0;
+        cout<<brand<<" "<<model<<" : engine turned off"<<endl;
+    }
+};
+int main(){
+  sportscar* mysportscar=new sportscar("ford","mustang");
+  mysportscar->startengine();
+  mysportscar->shiftgear(1);
+  mysportscar->accelerate();
+  mysportscar->brake();
+  mysportscar->stopengine();
+
+  cout<<mysportscar->getspeed()<<endl;
+  delete mysportscar;
+
+  return 0;
+
+}
